@@ -1,4 +1,5 @@
-from tkinter import Tk
+from tkinter import CENTER, NW, Frame, Tk
+from products.product_window import ProductWindow
 from structural.singleton import Singleton 
 import auth.authwindow as authwindow
 from db.maindb import DB
@@ -16,8 +17,14 @@ class Window(Tk, Singleton):
     
     def switch_frame(self, frame_class):
         new_frame = frame_class(self)
-        self._frame = new_frame
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame: Frame = new_frame
+        print(frame_class)
+        if frame_class == authwindow.AuthWindow:
+            self._frame.pack(expand=True, fill="both") 
         self._frame.pack()
+        print("frame swithed", new_frame)
 
     def db_init(self):
         self.db = DB()
