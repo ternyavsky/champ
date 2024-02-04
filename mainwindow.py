@@ -1,4 +1,4 @@
-from tkinter import CENTER, NW, Frame, Tk
+from tkinter import CENTER, NW, Canvas, Frame, Listbox, Scrollbar, Tk
 from products.product_window import ProductWindow
 from structural.singleton import Singleton 
 import auth.authwindow as authwindow
@@ -8,8 +8,9 @@ class Window(Tk, Singleton):
     def init(self, *args, **kwargs):
         super().__init__()
         self._frame = None
+        self.db = DB()
         self.switch_frame(authwindow.AuthWindow)
-        self.db_init()
+        #self.switch_frame(ProductWindow)
         print('calling from init')
     
     def __init__(self):
@@ -21,13 +22,9 @@ class Window(Tk, Singleton):
             self._frame.destroy()
         self._frame: Frame = new_frame
         print(frame_class)
-        if frame_class == authwindow.AuthWindow:
-            self._frame.pack(expand=True, fill="both") 
-        self._frame.pack()
+        self._frame.pack(expand=True, fill="both") 
         print("frame swithed", new_frame)
 
-    def db_init(self):
-        self.db = DB()
 
 
 

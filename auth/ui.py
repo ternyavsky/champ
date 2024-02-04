@@ -10,17 +10,22 @@ from .styles import *
 
 
 
+
+
+
 def init_auth(handle, master: 'Window'):
     def clicked():
         email = email_entry.get()
         password = password_entry.get()
         user = master.db.login(email, password)
+        print(type(user), 18)
         if type(user) == str:
             #label = Label(frame, text=user, font=header_style, foreground="#FF0000", **header_padding)
             #label.pack()
             showerror(title="Ошибка!", message="Неверный логин или пароль") 
         else:
             print(email, password, 12)
+            print(user, 24)
             master.switch_frame(ProductWindow)
     
 
